@@ -75,6 +75,7 @@ class Description extends StatelessWidget {
                                 ),
                                 foregroundColor: MaterialStateProperty.all(
                                   Color(0xffFFFFFF),
+                                  
                                 ),
                               ),
                             ),
