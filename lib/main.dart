@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:task1/Secreens/freelancer_detailes.dart';
 import 'package:task1/Secreens/home.dart';
-import 'package:task1/login.dart';
+import 'package:task1/Secreens/login.dart';
+import 'package:task1/Secreens/main_app.dart';
+import 'package:task1/Secreens/routs.dart';
+import 'package:task1/Secreens/signup.dart';
+
+
 
 
 void main() {
@@ -14,12 +20,22 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      routes:{
+      Routes.login:(context)=>Login(),
+      Routes.signup:(context)=>Signup(),
+      Routes.home:(context)=>Home(),
+      Routes.main:(context)=>MainApp(),
+      Routes.freelancerDetailes:(context)=>FreelancerDetailes()
+
+      } ,
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
 
         
-      home: Login()
+      home:Home()
     );
   }
 }
+
+
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:task1/Secreens/widgets/rating.dart';
+
+import 'package:task1/widgets/rating.dart';
 
 class Description extends StatelessWidget {
   const Description({super.key,required this.rate,required this.name,required this.job,required this.description,required this.img});

@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:task1/Secreens/widgets/description.dart';
-import 'package:task1/Secreens/widgets/rating.dart';
+import 'package:task1/data/servicesinfoModel.dart';
+
+import 'description.dart';
+import 'rating.dart';
 
 class ServicesInfo extends StatelessWidget {
-  const ServicesInfo({
+        ServicesInfo({
     super.key,
-    required this.services_img,
-    required this.rate,
-    required this.img,
-    required this.name,
-    required this.job,
-    required this.description,
+    required this.model
+   
   });
-  final String services_img;
-  final double rate;
-  final String img;
-  final String name;
-  final String job;
-  final String description;
+
+final ServicesinfoModel model;
+
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -34,7 +30,7 @@ class ServicesInfo extends StatelessWidget {
               height: 154,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(services_img),
+                  image: AssetImage(model.services_img),
                   fit: BoxFit.cover,
                 ),
                 borderRadius: BorderRadius.circular(20),
@@ -51,11 +47,11 @@ class ServicesInfo extends StatelessWidget {
                 ),
 
                 child: Description(
-                  img: img,
-                  name: name,
-                  job: job,
-                  description: description,
-                  rate: rate,
+                  img: model.img,
+                  name: model.name,
+                  job: model.job,
+                  description: model.description,
+                  rate: model.rate,
                 ),
               ),
             ),
