@@ -1,15 +1,20 @@
-import 'package:flutter/material.dart';
-import 'package:task1/Secreens/routs.dart';
+import 'dart:convert';
 
-class MainApp extends StatefulWidget {
-  const MainApp({super.key});
+import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:task1/Secreens/routs.dart';
+import 'package:task1/data/product.dart';
+import 'package:task1/widgets/product_widget.dart';
+
+class AllProduct extends StatefulWidget {
+  const AllProduct({super.key});
 
   @override
-  State<MainApp> createState() => _MainAppState();
+  State<AllProduct> createState() => _MainAppState();
 }
   
 
-class _MainAppState extends State<MainApp> {
+class _MainAppState extends State<AllProduct> {
 
 List <Widget> secreen=[
   Text('Home'),
@@ -18,6 +23,12 @@ List <Widget> secreen=[
 
 ];
   int index=0;
+  List <ProductModel>products=[];
+
+  @override
+  void initState() {
+    feachData();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,9 +52,24 @@ List <Widget> secreen=[
     appBar: AppBar(
     backgroundColor: Colors.purpleAccent,
     title: Text("APP"),
+    
     ),
     
-    body:Center(child:secreen[index] ) ,
+    body:Center(child:ListView.builder(
+      itemCount: products.length,
+      itemBuilder:(context,index){
+        return ProductWidget(model: products[index]
+
+
+
+);
+      
+      }
+      )
+
+    ),
+
+    
      bottomNavigationBar: BottomNavigationBar(
         selectedFontSize: 20,
         unselectedFontSize: 15,
@@ -65,6 +91,21 @@ List <Widget> secreen=[
     
     
     );
+
+  }
+  feachData()async{
+    var response=await get(Uri.parse('https://fakestoreapi.com/products'));
+    print(response.body);
+    var data = jsonDecode(response.body);
+    print(data.length);
+    for(Map map in data){
+      ProductModel model=ProductModel.fromJson(map);
+      setState(() {
+   products.add(model);
+});
+     
+    }
+
 
   }
 }

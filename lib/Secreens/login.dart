@@ -5,12 +5,21 @@ import 'package:task1/Secreens/signUp.dart';
 
 import 'package:task1/widgets/custam_text_faild.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   Login({super.key});
 
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  bool isloading=false;
   TextEditingController namecont = TextEditingController();
+
   TextEditingController emailcont = TextEditingController();
+
   TextEditingController passwordcont = TextEditingController();
+
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
 
   @override
@@ -83,8 +92,7 @@ class Login extends StatelessWidget {
                   login(context);
                 },
               
-                child: Text(
-                  "Login",
+                child:isloading?  CircularProgressIndicator() :Text("Login",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 style: ButtonStyle(
@@ -101,13 +109,21 @@ class Login extends StatelessWidget {
     );
   }
 
-  login(BuildContext context) {
+  login(BuildContext context) async{
+    
+ await Future.delayed(Duration(seconds: 3));
+
+    setState(() {
+          isloading=true;
+        });
     if (_key.currentState?.validate() ?? false) {
       Navigator.pushReplacementNamed(
         context, Routes.home ,
         arguments:{'name':  namecont.text}
         
         );
+
+     
     } else {
       ScaffoldMessenger.of(
         context,

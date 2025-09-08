@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:task1/Secreens/freelancer_detailes.dart';
 import 'package:task1/Secreens/home.dart';
 import 'package:task1/Secreens/login.dart';
-import 'package:task1/Secreens/main_app.dart';
+import 'package:task1/Secreens/all_product.dart';
 import 'package:task1/Secreens/routs.dart';
 import 'package:task1/Secreens/signup.dart';
 
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       Routes.login:(context)=>Login(),
       Routes.signup:(context)=>Signup(),
       Routes.home:(context)=>Home(),
-      Routes.main:(context)=>MainApp(),
+      Routes.allproducts:(context)=>AllProduct(),
       Routes.freelancerDetailes:(context)=>FreelancerDetailes()
 
       } ,
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
 
         
-      home:Home()
+      home:AllProduct()
     );
   }
 }
