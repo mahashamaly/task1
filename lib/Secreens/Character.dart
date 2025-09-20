@@ -3,29 +3,29 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:task1/Secreens/routs.dart';
-import 'package:task1/model/BookModel.dart';
+import 'package:task1/model/Character.model.dart';
+import 'package:task1/widgets/Characters_widget.dart';
 
 
-import 'package:task1/widgets/book_widget.dart';
 
 
-class Books extends StatefulWidget {
-  const Books({super.key});
+class Character extends StatefulWidget {
+  const Character ({super.key});
 
   @override
-  State<Books> createState() => _MainAppState();
+  State<Character> createState() => _MainAppState();
 }
   
 
-class _MainAppState extends State<Books> {
+class _MainAppState extends State<Character> {
 
 
-  List <BookModel>Books=[];
+  List <CharacterModel>Characters=[];
   
 
   @override
   void initState() {
-  feachBook();
+feachCharacter();
   }
 
  
@@ -41,9 +41,9 @@ class _MainAppState extends State<Books> {
     ),
     
     body:ListView.builder(
-      itemCount: Books.length,
+      itemCount: Characters.length,
       itemBuilder:(context,index){
-        return BookWidget(model:Books [index]
+        return CharactersWidget (model:Characters [index]
     
     
     
@@ -57,17 +57,16 @@ class _MainAppState extends State<Books> {
   }
 
 
-  feachBook()async{
-    var response=await get(Uri.parse('https://potterapi-fedeperin.vercel.app/en/books'));
+  feachCharacter()async{
+    var response=await get(Uri.parse('https://raw.githubusercontent.com/fedeperin/potterapi/main/public/characters.json'));
     print(response.body);
     var data = jsonDecode(response.body);
     print(data.length);
     for(var map in data){
-      BookModel model=BookModel.fromJson(map);
+     CharacterModel model= CharacterModel.fromJson(map);
       if (!mounted) return;
-      setState(() {
-         
-   Books.add(model);
+      setState(() {  
+  Characters.add(model);
 });
      
     }

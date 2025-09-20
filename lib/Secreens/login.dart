@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:task1/Secreens/home.dart';
 import 'package:task1/Secreens/routs.dart';
 import 'package:task1/Secreens/signUp.dart';
@@ -7,6 +8,7 @@ import 'package:task1/widgets/custam_text_faild.dart';
 
 class Login extends StatefulWidget {
   Login({super.key});
+ static const String userCredentialKey="userCredential";
 
   @override
   State<Login> createState() => _LoginState();
@@ -117,9 +119,11 @@ class _LoginState extends State<Login> {
           isloading=true;
         });
     if (_key.currentState?.validate() ?? false) {
+      await loginUser(emailcont.text);
       Navigator.pushReplacementNamed(
-        context, Routes.home ,
-        arguments:{'name':  namecont.text}
+        context,Routes.home,
+      
+       arguments:{'name':  namecont.text,'email':emailcont.text}
         
         );
 
@@ -135,5 +139,13 @@ class _LoginState extends State<Login> {
         );
     }
     
+  }
+
+
+  loginUser(String email)async{
+    final pref= await SharedPreferences.getInstance();
+    pref.setString(Login.userCredentialKey,email );
+
+
   }
 }

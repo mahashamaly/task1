@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:task1/Secreens/routs.dart';
-import 'package:task1/data/BookModel.dart';
-import 'package:task1/data/FrelancarModel.dart';
-import 'package:task1/data/product.dart';
+import 'package:task1/model/BookModel.dart';
+import 'package:task1/model/FrelancarModel.dart';
+import 'package:task1/model/product.dart';
 
 import 'rating.dart';
 

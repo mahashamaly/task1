@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:task1/Secreens/routs.dart';
-import 'package:task1/data/product.dart';
+import 'package:task1/model/product.dart';
 import 'package:task1/widgets/product_widget.dart';
 
 class AllProduct extends StatefulWidget {

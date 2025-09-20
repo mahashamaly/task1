@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:task1/Secreens/routs.dart';
-import 'package:task1/model/FrelancarModel.dart';
-import 'package:task1/model/product.dart';
+import 'package:task1/model/Character.model.dart';
 
-import 'rating.dart';
 
-class ProductDetailes extends StatelessWidget {
-  const  ProductDetailes({super.key,required this.model});
+class CharacterDescription extends StatelessWidget {
+  const CharacterDescription ({super.key,required this.model});
 
-final ProductModel model;
+final CharacterModel  model;
   @override
   Widget build(BuildContext context) {
    return Scaffold(
     appBar: AppBar(
-title: Text("products"),
+title: Text("Characters"),
 
     ),
      body: Padding(
@@ -32,9 +30,8 @@ title: Text("products"),
                       height:16 ,
                           ),
                             Text(
-                              model.title,
-                              maxLines: 2,
-                              overflow:TextOverflow.ellipsis,
+                              model.name,
+                          
                           
                           
                               style: TextStyle(
@@ -48,7 +45,7 @@ title: Text("products"),
                               height: 8,
                             ),
                             Text(
-                             model.description,
+                             model.house,
                              textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 14,
@@ -59,9 +56,9 @@ title: Text("products"),
                              SizedBox(
                               height: 8,
                             ),
-                            Rating(rate: model.rating),
+                     
         
-                
+               
         
                           ],
         

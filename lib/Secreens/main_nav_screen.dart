@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:task1/Secreens/Character.dart';
 import 'package:task1/Secreens/all_product.dart';
 import 'package:task1/Secreens/books.dart';
 import 'package:task1/Secreens/routs.dart';
@@ -18,7 +19,7 @@ class _MainAppState extends State<MainNavScreen> {
 
 
 
-  List <Widget> Screens = [AllProduct(),Books(),Text('setting')];
+  List <Widget> Screens = [AllProduct(),Books(),Character()];
 int index=0;
   
   @override

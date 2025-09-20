@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task1/Secreens/routs.dart';
-import 'package:task1/data/FrelancarModel.dart';
+import 'package:task1/model/FrelancarModel.dart';
 
 import 'rating.dart';
 

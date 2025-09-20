@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:task1/model/BookModel.dart';
-
-import 'package:task1/widgets/descriptionBook.dart';
-
+import 'package:task1/model/Character.model.dart';
+import 'package:task1/widgets/Character_description.dart';
 
 
-class BookWidget extends StatelessWidget {
-  const BookWidget({super.key, required this.model});
-  final BookModel model;
+
+
+
+
+class CharactersWidget extends StatelessWidget {
+  const CharactersWidget({super.key, required this.model});
+  final   CharacterModel  model;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
         Navigator.push(context, MaterialPageRoute(builder:(BuildContext context){
-            return Descriptionbook(model:model );
+            return CharacterDescription(model:model );
         } )
         
         
@@ -25,7 +27,7 @@ class BookWidget extends StatelessWidget {
        leading:   ClipRRect(
           borderRadius: BorderRadius.circular(8),
           child: Image.network(
-            model.cover,
+            model.image,
             width: 60,
             height: 60,
             fit: BoxFit.cover,
@@ -34,17 +36,11 @@ class BookWidget extends StatelessWidget {
       
       
       
-        title: Text((model.title)),
+        title: Text(model.name),
         
         subtitle: Column(
           children: [
-            Text(model.description,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            ),
-          
-            Text(model.releaseDate),
-            Text(model.pages.toString()),
+               Text(model.house),
           ],
         ),
         

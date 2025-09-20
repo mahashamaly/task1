@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:task1/data/servicesinfoModel.dart';
+import 'package:task1/model/servicesinfoModel.dart';
 
 import 'description.dart';
 import 'rating.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:task1/data/FrelancarModel.dart';
-import 'package:task1/data/servicesinfoModel.dart';
+import 'package:task1/model/FrelancarModel.dart';
+import 'package:task1/model/servicesinfoModel.dart';
 
 import 'package:task1/widgets/frelancar_info_widget.dart';
 import 'package:task1/widgets/section_widgets.dart';
@@ -12,6 +12,7 @@ import 'package:task1/widgets/services_info.dart';
 
 class Home extends StatelessWidget {
   Home({super.key});
+
   final List<FrelancarModel> Freelances = [
     FrelancarModel(
       name: "Wade Warren",
@@ -84,6 +85,7 @@ ServicesinfoModel(services_img: 'assets/img/image 6.png',
     final arg =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>?;
     final String name = arg?['name'] ?? 'Guest';
+    final String email= arg?['email']??'no email';
     return Scaffold(
       appBar: AppBar(
         titleSpacing: 16,
@@ -120,11 +122,8 @@ ServicesinfoModel(services_img: 'assets/img/image 6.png',
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Align(
-                  alignment: Alignment.centerLeft,
-
-                  child: Text("hello $name"),
-                ),
+                Text("hello $name"),
+                Text("Your email: $email"),
                 Row(
                   children: [
                     Expanded(

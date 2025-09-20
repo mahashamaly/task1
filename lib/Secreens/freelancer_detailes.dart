@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:task1/data/FrelancarModel.dart';
+import 'package:task1/model/FrelancarModel.dart';
 import 'package:task1/widgets/rating.dart';
 
 class FreelancerDetailes extends StatelessWidget {
