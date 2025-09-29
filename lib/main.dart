@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sqflite/sqflite.dart';
 import 'package:task1/Secreens/books.dart';
 import 'package:task1/Secreens/counter.dart';
 import 'package:task1/Secreens/freelancer_detailes.dart';
@@ -7,9 +8,12 @@ import 'package:task1/Secreens/home.dart';
 import 'package:task1/Secreens/login.dart';
 import 'package:task1/Secreens/all_product.dart';
 import 'package:task1/Secreens/main_nav_screen.dart';
-import 'package:task1/Secreens/notes_screen.dart';
+
 import 'package:task1/Secreens/routs.dart';
 import 'package:task1/Secreens/signup.dart';
+import 'package:task1/todo/data/notes-shared-db.dart';
+import 'package:task1/todo/data/notes-sqlite-db.dart';
+import 'package:task1/todo/presentation/screens/noat-screen.dart';
 
 
 
@@ -18,20 +22,9 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
 final pref= await SharedPreferences.getInstance();
 bool isLoggedIn = pref.getString(Login.userCredentialKey) != null;
+  await NotesSharedDb.init();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+  await  NotesSqliteDb.init();
 
 
   runApp( MyApp(isLoggedIn: isLoggedIn));
@@ -64,7 +57,10 @@ textTheme: TextTheme()
       title: 'Flutter Demo',
 
         
-      home: isLoggedIn? NotesScreen():Login()
+      //home: isLoggedIn? NotesScreen():Login()
+      home:NotesScreen()
+    
+      
     );
   }
 }

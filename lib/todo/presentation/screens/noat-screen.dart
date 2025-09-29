@@ -2,7 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:task1/Secreens/note.dart';
+
+import 'package:task1/todo/data/note-model.dart';
+import 'package:task1/todo/data/notes-shared-db.dart';
+import 'package:task1/todo/data/notes-sqlite-db.dart';
+import 'package:task1/todo/presentation/widgets/note_iteam.dart';
 import 'package:task1/widgets/custam_text_faild.dart';
 
 class NotesScreen extends StatefulWidget {
@@ -30,6 +34,8 @@ List<NoteModel>notes=[];
   void initState() {
     // TODO: implement initState
     super.initState();
+   
+    //هاى بناديها اول ما التطبيق بشتغل
     fetchList();
   }
 
@@ -49,23 +55,50 @@ List<NoteModel>notes=[];
               CustamTextFaild(cont:titleController ,hint: "title",),
               CustamTextFaild(cont:countentController ,hint: "countent",),
            
-              ElevatedButton(onPressed: (){
+              ElevatedButton(onPressed: ()async{
+                //NotModel without id
                 //creat oobject model
                NoteModel  note= NoteModel(
                 title: titleController.text, 
                 date:DateTime.now(),
-                 content: countentController.text
+               content: countentController.text, 
                 
                 );
+                 var id= await NotesSqliteDb.insertNotToDb(note);
+                 // يجب هنا تحديث note.id = id
+                 note.id = id;
+              
+              fetchList();
+              
+              
+              
+                //  note.id = id; // تحديث id بالنوت الفعلية
 
-                setState(() {
-                  notes.add(note);
-                  titleController.clear();
-                  countentController.clear();
-                  updateList();
-                  Navigator.pop(context);
+                  //طريقة حل1 
+                //هنا اضفنا ال id            
+              //   note=NoteModel(
+              //      title: note.title,
+              //   date:note.date,
+              //  content: note.content,
+              //  id:id
+
+              //   );
+                    
+               
+                  //  notes.add(note);
+                 //هيك ضفت النوت ل ui
+                // setState(() {
+                
+               
+                //     notes.add(note);
+                 
+                // // NotesSharedDb.updateListFromSharedDb(notes);
+                
                   
-                });
+                // });
+                 titleController.clear();
+                  countentController.clear();
+                 Navigator.pop(context);
               }, child: Text("Add"))
               
               ],
@@ -87,51 +120,36 @@ List<NoteModel>notes=[];
      : ListView.builder(
         itemCount: notes.length,
       itemBuilder: (context,index){
-        return Dismissible(
-          background:Container(color: Colors.red,) ,
-          key: UniqueKey(),
-          onDismissed: (direction){
-            notes.removeAt(index);
-            updateList();
+        return NoteIteam(note:notes[index] ,
+        onDismissed:  (direction)async{
+           await  NotesSqliteDb.deleteNoteFromDb(notes[index]);
+           await fetchList(); // تحديث القائمة من DB
+
+            //notes.removeAt(index);
+           //NotesSharedDb.updateListFromSharedDb(notes);
             if(notes.length==0){
               setState(() {
                 
               });
 
             }
-          },
-          child: ListTile(
-            title: Text(notes[index].title),
-            subtitle: Text(notes[index].content),
-            trailing: Text(
-            '${notes[index].date.day}/${notes[index].date.month}/${notes[index].date.year}',
-
-          )
-          )
+          }, 
         );
       }
         ),
     );
   }
-  updateList()async{
-    final pref=await SharedPreferences.getInstance();
-    final List<Map<String,dynamic>>listMap=notes.map((e)=>e.toJson()).toList();
-    //بنشفرها
-    final String jsonString= jsonEncode(listMap);
-    //بنخزنها تحت المفتاح
-     await pref.setString(notesKey,jsonString );
-
-   }
- // هاى بناديها اول مايشتغل التطبيق
   fetchList()async{
-    final pref=await SharedPreferences.getInstance();
-   final raw=  pref.getString(notesKey);
-     if (raw == null) return; // أول مرة: ما في بيانات
- final List Decoded=jsonDecode(raw);
- setState(() {
-   notes=Decoded.map((e)=>NoteModel.fromJson(e as Map<String,dynamic>)).toList();
- });
-  
+  var fetchList= await NotesSqliteDb.getNotesFromDb();
 
+
+  // var fetchList=await NotesSharedDb.fetchListFromSharedDb();
+  
+   setState(() {
+    notes=fetchList;
+   });
+
+    
   }
+  
 }
