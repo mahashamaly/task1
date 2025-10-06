@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:task1/Secreens/routs.dart';
+import 'package:task1/e-commerce/data/product_model.dart';
 import 'package:task1/model/FrelancarModel.dart';
-import 'package:task1/model/product.dart';
 
-import 'rating.dart';
+
+import '../../../widgets/rating.dart';
 
 class ProductDetailes extends StatelessWidget {
   const  ProductDetailes({super.key,required this.model});

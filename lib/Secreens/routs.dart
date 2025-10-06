@@ -5,6 +5,6 @@ static const String home="/home";
 static const String allproducts="/allproducts";
 static const String freelancerDetailes="/freelancerDetailes";
 static const String MainNavScreen="/ mainNavScreen";
-static const String Books="/Books";
+static const String cart="/cart";
 
 }

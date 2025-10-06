@@ -22,11 +22,14 @@ String counterKey='counter';
   }
   @override
   Widget build(BuildContext context) {
+    var size= MediaQuery.of(context).size;
     return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text('Device Heigh:${size.height}'),
+            Text('Device width:${size.width}'),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

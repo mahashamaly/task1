@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:task1/Secreens/Character.dart';
-import 'package:task1/Secreens/all_product.dart';
-import 'package:task1/Secreens/books.dart';
+import 'package:task1/e-commerce/presentaion/secreen/all_product.dart';
+import 'package:task1/e-commerce/presentaion/secreen/cart.dart';
 import 'package:task1/Secreens/routs.dart';
 
 class MainNavScreen extends StatefulWidget {
@@ -19,7 +19,7 @@ class _MainAppState extends State<MainNavScreen> {
 
 
 
-  List <Widget> Screens = [AllProduct(),Books(),Character()];
+  List <Widget> Screens = [AllProduct(),Cart(),Character()];
 int index=0;
   
   @override
@@ -43,7 +43,7 @@ int index=0;
         },
         items: [
         BottomNavigationBarItem(icon: Icon(Icons.home),label: 'Home',activeIcon: Icon(Icons.home) ),
-         BottomNavigationBarItem(icon: Icon(Icons.book),label:'books',activeIcon:Icon(Icons.shop)  ),
+         BottomNavigationBarItem(icon: Icon(Icons.shopping_cart_outlined),label:'cart',activeIcon:Icon(Icons.shopping_cart)  ),
          BottomNavigationBarItem(icon: Icon(Icons.settings_outlined),label:'setting' ,activeIcon:Icon(Icons.settings) ),
        
         

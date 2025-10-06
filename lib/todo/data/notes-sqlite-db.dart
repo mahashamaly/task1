@@ -15,6 +15,7 @@ static Future<void>init()async{
 _database=await openDatabase(
   dbPath,
   version: 1,
+   
 onCreate: (db, version) {
 // When creating the db, create the table
 print('on create db called');

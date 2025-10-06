@@ -1,12 +1,15 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:task1/todo/data/note-model.dart';
 import 'package:task1/todo/data/notes-shared-db.dart';
 import 'package:task1/todo/data/notes-sqlite-db.dart';
 import 'package:task1/todo/presentation/widgets/note_iteam.dart';
+import 'package:task1/todo/provider/notes-provider.dart';
+
 import 'package:task1/widgets/custam_text_faild.dart';
 
 class NotesScreen extends StatefulWidget {
@@ -29,18 +32,20 @@ class _NotesScreenState extends State<NotesScreen> {
 
   
 
-List<NoteModel>notes=[];
 @override
   void initState() {
     // TODO: implement initState
     super.initState();
-   
+    // فقط لاستدعاء دالة من Provider بدون عمل rebuild
+     Provider.of<Notesprovider>(context, listen: false).readAllNotes();
+
     //هاى بناديها اول ما التطبيق بشتغل
-    fetchList();
+    //fetchList();
   }
 
   @override
   Widget build(BuildContext context) {
+    var notesProvider= Provider.of<Notesprovider>(context);
     return Scaffold(
       floatingActionButton: FloatingActionButton(
 
@@ -64,38 +69,17 @@ List<NoteModel>notes=[];
                content: countentController.text, 
                 
                 );
-                 var id= await NotesSqliteDb.insertNotToDb(note);
-                 // يجب هنا تحديث note.id = id
-                 note.id = id;
+            
+                
+               notesProvider.addNote(note);
               
-              fetchList();
+            
               
               
               
-                //  note.id = id; // تحديث id بالنوت الفعلية
-
-                  //طريقة حل1 
-                //هنا اضفنا ال id            
-              //   note=NoteModel(
-              //      title: note.title,
-              //   date:note.date,
-              //  content: note.content,
-              //  id:id
-
-              //   );
+              
                     
                
-                  //  notes.add(note);
-                 //هيك ضفت النوت ل ui
-                // setState(() {
-                
-               
-                //     notes.add(note);
-                 
-                // // NotesSharedDb.updateListFromSharedDb(notes);
-                
-                  
-                // });
                  titleController.clear();
                   countentController.clear();
                  Navigator.pop(context);
@@ -114,42 +98,45 @@ List<NoteModel>notes=[];
         title: Text("Notes"),
         
       ),
-      body: 
-      notes.isEmpty?
-      Center(child: Text('Thear is nothing to show'))
-     : ListView.builder(
-        itemCount: notes.length,
+      body: Consumer<Notesprovider>(builder: (context,provider,child){
+       return provider.notes.isEmpty?  Center(child: Text('Thear is nothing to show')):ListView.builder(
+        //النوت راح اجيبها من الليست يلى جو البرفايدر
+        itemCount: provider.notes.length,
       itemBuilder: (context,index){
-        return NoteIteam(note:notes[index] ,
+        return NoteIteam(note:provider.notes[index] ,
         onDismissed:  (direction)async{
-           await  NotesSqliteDb.deleteNoteFromDb(notes[index]);
-           await fetchList(); // تحديث القائمة من DB
+          provider.deleteNote(provider.notes[index]);
 
-            //notes.removeAt(index);
-           //NotesSharedDb.updateListFromSharedDb(notes);
-            if(notes.length==0){
-              setState(() {
-                
-              });
+        }, 
 
-            }
-          }, 
         );
       }
-        ),
+        );
+      }
+   
+    )
     );
   }
-  fetchList()async{
-  var fetchList= await NotesSqliteDb.getNotesFromDb();
 
-
-  // var fetchList=await NotesSharedDb.fetchListFromSharedDb();
+ fetchList()async{
+  Provider.of<Notesprovider>(context).readAllNotes();
+ }
   
-   setState(() {
-    notes=fetchList;
-   });
+
+
+
+
+  // fetchList()async{
+  // //var fetchList= await NotesSqliteDb.getNotesFromDb();
+
+
+  // // var fetchList=await NotesSharedDb.fetchListFromSharedDb();
+  
+  //  setState(() {
+  //   notes=fetchList;
+  //  });
 
     
-  }
+  // }
   
 }
